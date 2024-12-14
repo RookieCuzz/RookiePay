@@ -1,0 +1,4 @@
+name: RookiePayBroker
+version: '${version}'
+author: cuzz
+main: com.cuzz.rookiepaybroker.RookiePayBroker

@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.cuzz'
+version = '1.0-SNAPSHOT'
+
+subprojects {
+    apply plugin: 'java'
+    // 所有子项目都会继承这个配置
+    repositories {
+        mavenCentral()  // 所有子模块都可以使用 Maven Central 仓库
+        maven {
+            name = "sonatype-oss-snapshots1"
+            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+        }
+
+
+    }
+    dependencies {
+        implementation 'org.projectlombok:lombok:1.18.28'
+        annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    sourceSets {
+        main {
+            // 将 common 模块的源码集成到服务模块中
+            java {
+                srcDir "$rootDir/Common/src/main/java"
+            }
+            resources {
+                srcDir "$rootDir/Common/src/main/resources"
+            }
+        }
+    }
+
+
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

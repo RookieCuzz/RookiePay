@@ -1,0 +1,13 @@
+name: RookiePayBukkit
+version: '${version}'
+main: com.cuzz.rookiepaybukkit.RookiePayBukkit
+api-version: '1.20'
+depend:
+  - AfyBroker
+load: STARTUP
+commands:
+  minepay:
+    description:
+    usage: /minepay <金额>
+    permission: minepay.use
+    permission-message: 你没有权限使用此命令。

@@ -1,0 +1,5 @@
+rootProject.name = 'RookiePay'
+include ':Common'
+include ':RookiePayBukkit', ':RookiePayBroker'
+
+
