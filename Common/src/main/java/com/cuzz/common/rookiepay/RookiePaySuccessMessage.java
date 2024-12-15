@@ -1,4 +1,4 @@
-package com.cuzz.rookiepay;
+package com.cuzz.common.rookiepay;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @ToString
 @Accessors(chain = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RookiePayMessage implements Serializable {
+public class RookiePaySuccessMessage implements Serializable {
     private static final long serialVersionUID = 8849649245827190181L;
 
     String player;

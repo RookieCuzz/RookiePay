@@ -58,7 +58,8 @@ processResources {
 shadowJar{
   archiveClassifier.set("all")
     dependencies {
-        include(dependency("com.fasterxml.jackson.core:jackson-core"))
+//        include(dependency("com.fasterxml.jackson.core:jackson-core"))
+//        include(dependency("com.squareup.okhttp3:okhttp"))
     }
 }
 tasks.jar{

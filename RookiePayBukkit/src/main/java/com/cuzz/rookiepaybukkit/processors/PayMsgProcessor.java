@@ -2,16 +2,16 @@ package com.cuzz.rookiepaybukkit.processors;
 
 import com.alipay.remoting.BizContext;
 import com.alipay.remoting.rpc.protocol.SyncUserProcessor;
-import com.cuzz.rookiepay.RookiePayMessage;
+import com.cuzz.common.rookiepay.RookiePaySuccessMessage;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
 @AllArgsConstructor
-public class PayMsgProcessor extends SyncUserProcessor<RookiePayMessage> {
+public class PayMsgProcessor extends SyncUserProcessor<RookiePaySuccessMessage> {
     @Override
-    public Object handleRequest(BizContext bizContext, RookiePayMessage request){
+    public Object handleRequest(BizContext bizContext, RookiePaySuccessMessage request){
         if (request ==null){
             return null;
         }
@@ -27,6 +27,6 @@ public class PayMsgProcessor extends SyncUserProcessor<RookiePayMessage> {
 
     @Override
     public String interest() {
-        return RookiePayMessage.class.getName();
+        return RookiePaySuccessMessage.class.getName();
     }
 }

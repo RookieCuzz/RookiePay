@@ -62,7 +62,7 @@ public final class RookiePayBukkit extends JavaPlugin {
         RequestBody body = RequestBody.create(json, JSON);
 
         Request request = new Request.Builder()
-                .url("http://localhost:8089/order/createOrder")
+                .url("https://www.4399mc.cn/cuzz/order/createOrder")
                 .post(body)
                 .build();
 
