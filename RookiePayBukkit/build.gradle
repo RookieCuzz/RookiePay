@@ -16,19 +16,45 @@ repositories {
         url = "https://oss.sonatype.org/content/groups/public/"
     }
 }
-
+configurations.all {
+//    exclude group: 'org.mybatis.generator'
+//    exclude group: 'mysql:mysql-connector-java'
+//    exclude group: 'com.zaxxer:HikariC'
+//    exclude group: 'org.mybatis:mybatis'
+    exclude group: 'io.github.odalita-developments.odalitamenus'
+}
 dependencies {
-
+    compileOnly 'org.mybatis.generator:mybatis-generator-core:1.4.2'
     // 引入本地模块 'Common'，用于复用公共功能
     implementation project(':Common')
     compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
+
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+    compileOnly 'org.mybatis:mybatis:3.5.6'
+    compileOnly 'mysql:mysql-connector-java:8.0.23'
+    compileOnly 'com.zaxxer:HikariCP:4.0.3'
     // 引入本地 jar 文件，路径指定为本地文件系统中的 afybroker-server-bootstrap-2.3-all.jar
-    compileOnly files("C:/Users/PC/Desktop/RookieChat/libs/afybroker-server-bootstrap-2.3-all.jar")
     // 引入本地 jar 文件，路径指定为本地文件系统中的 afybroker-server-bootstrap-2.3-all.jar
-    compileOnly files("C:/Users/PC/Desktop/RookieChat/libs/afybroker-bukkit-2.3-all.jar")
+    compileOnly files("C:/Users/PC/Desktop/RookiePay/libs/afybroker-bukkit-2.3-all.jar")
+    compileOnly files("C:/Users/PC/Desktop/RookiePay/libs/BukkitMybatis-1.0-SNAPSHOT.jar")
+    compileOnly files("C:\\Users\\PC\\Desktop\\RookiePay\\libs\\RookieFonts-1.0-SNAPSHOT-all.jar")
+    implementation 'io.github.odalita-developments.odalitamenus:core:0.5.13'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'org.java-websocket:Java-WebSocket:1.5.2'
+    implementation 'org.jetbrains:annotations:23.0.0'
 }
+
+task generateMyBatis {
+    doLast {
+        javaexec {
+            main = 'org.mybatis.generator.api.ShellRunner'
+            classpath = sourceSets.main.runtimeClasspath
+            args = ['-configfile', 'src/main/resources/generatorConfig.xml', '-overwrite']
+        }
+    }
+}
+
 
 def targetJavaVersion = 17
 java {
