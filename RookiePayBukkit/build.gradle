@@ -19,8 +19,6 @@ repositories {
 configurations.all {
 //    exclude group: 'org.mybatis.generator'
 //    exclude group: 'mysql:mysql-connector-java'
-//    exclude group: 'com.zaxxer:HikariC'
-//    exclude group: 'org.mybatis:mybatis'
     exclude group: 'io.github.odalita-developments.odalitamenus'
 }
 dependencies {
