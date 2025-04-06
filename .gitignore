@@ -9,6 +9,8 @@ build/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/gradle.xml
+.idea/kotlinc.xml
 *.iws
 *.iml
 *.ipr
@@ -40,3 +42,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Build ###
+build.gradle
+**/build.gradle
+/RookiePayBukkit/gradle/wrapper/gradle-wrapper.properties
