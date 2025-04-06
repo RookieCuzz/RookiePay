@@ -94,6 +94,10 @@ public class MinePayCmd implements TabExecutor {
                             productDOExample.createCriteria().andProductNameEqualTo(args[1]);
                             //productName是唯一的
                             List<ProductDO> productDOS = mapper.selectByExample(productDOExample);
+                            if(productDOS.size() == 0) {
+                                sender.sendMessage("§c商品不存在!");
+                                return;
+                            }
                             ProductDO productDO = productDOS.get(0);
                             double currentPrice =productDO.getCurrentPrice().doubleValue();
 
