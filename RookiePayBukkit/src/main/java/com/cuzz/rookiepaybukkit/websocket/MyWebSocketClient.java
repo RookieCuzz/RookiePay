@@ -52,13 +52,12 @@ public class MyWebSocketClient extends WebSocketClient {
         System.out.println();
         Bukkit.getOnlinePlayers().forEach(
                 player -> {
-
                     Bukkit.getScheduler().runTask(RookiePayBukkit.INSTANCE,
-
-                            ()->{        player.sendMessage("完成支付"+json);
-                                    player.closeInventory();
-                            }
-                            );
+                        ()->{
+                            player.sendMessage("完成支付"+json);
+                            player.closeInventory();
+                        }
+                    );
                 }
 
         );
