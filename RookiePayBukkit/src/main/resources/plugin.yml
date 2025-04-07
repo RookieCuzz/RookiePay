@@ -5,6 +5,7 @@ api-version: '1.21.4'
 depend:
   - AfyBroker
   - BukkitMybatis
+  - ProtocolLib
 load: STARTUP
 commands:
   minepay:
