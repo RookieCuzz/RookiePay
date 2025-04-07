@@ -1,6 +1,10 @@
 package com.cuzz.rookiepaybukkit.menus;
 
 import lombok.Setter;
+import me.trytofeel.rookieFonts.manager.TemplateManager;
+import me.trytofeel.rookieFonts.models.Template;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import nl.odalitadevelopments.menus.OdalitaMenus;
 import nl.odalitadevelopments.menus.annotations.Menu;
 import nl.odalitadevelopments.menus.contents.MenuContents;
@@ -21,21 +25,22 @@ import org.jetbrains.annotations.NotNull;
 @Setter
 @Menu(
     title = "支付窗口",
-    type = MenuType.CHEST_1_ROW
+    type = MenuType.CHEST_6_ROW
 )
 
 public final class PayMenu implements PlayerMenuProvider {
     private MenuContents menuContent;
     private String title;
 
-    public PayMenu(String title) {
-        this.title = title;
-    }
-
     @Override
     public void onLoad(@NotNull Player player, @NotNull MenuContents menuContents) {
         this.menuContent = menuContents;
-        menuContents.setTitle(this.title);
+
+        // title
+        Template template = TemplateManager.getTemplateManager().TemplateList.get("pay");
+        Component defaultComponentByString = template.getDefaultComponentByString(player.getName());
+        final String jsonText = GsonComponentSerializer.gson().serialize(defaultComponentByString);
+        menuContents.setTitle(jsonText);
 
         ItemMeta closeItemMeta = new ItemStack(Material.RED_WOOL).getItemMeta();
         assert closeItemMeta != null;

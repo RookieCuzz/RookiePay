@@ -10,6 +10,10 @@ import com.cuzz.rookiepaybukkit.model.doo.ProductDOExample;
 import com.cuzz.rookiepaybukkit.utils.ItemUtils;
 import com.cuzz.rookiepaybukkit.utils.StringUtils;
 import me.trytofeel.rookieFonts.RookieFonts;
+import me.trytofeel.rookieFonts.manager.TemplateManager;
+import me.trytofeel.rookieFonts.models.Template;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import nl.odalitadevelopments.menus.OdalitaMenus;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.session.SqlSession;
@@ -77,7 +81,7 @@ public class MinePayCmd implements TabExecutor {
                 return false;
 
 
-            }else if (args[0].equalsIgnoreCase("Buy")){
+            } else if (args[0].equalsIgnoreCase("Buy")){
                 if (args.length==3 && StringUtils.isPositiveInteger(args[2])){
 
 
@@ -139,7 +143,8 @@ public class MinePayCmd implements TabExecutor {
                             sender.sendMessage("§6请在弹出的窗口中完成支付！");
 
                             OdalitaMenus odalitaMenus = RookiePayBukkit.INSTANCE.getOdalitaMenus();
-                            PayMenu payMenu = new PayMenu("{\"text\":\"" + qrCodeStr + "\",\"font\":\"pay/line1_font\"}");
+
+                            PayMenu payMenu = new PayMenu();
                             odalitaMenus.openMenu(payMenu, player);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
