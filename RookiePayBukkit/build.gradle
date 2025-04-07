@@ -36,7 +36,7 @@ dependencies {
     // 引入本地 jar 文件，路径指定为本地文件系统中的 afybroker-server-bootstrap-2.3-all.jar
     compileOnly files("$rootDir/libs/afybroker-bukkit-2.3-all.jar")
     compileOnly files("$rootDir/libs/BukkitMybatis-1.0-SNAPSHOT.jar")
-    implementation files("$rootDir/libs/RookieFonts-1.0-SNAPSHOT-all.jar")
+    compileOnly files("$rootDir/libs/RookieFonts-1.0-SNAPSHOT-all.jar")
     implementation 'io.github.odalita-developments.odalitamenus:core:0.5.13'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'org.java-websocket:Java-WebSocket:1.5.2'
@@ -80,9 +80,8 @@ processResources {
 }
 
 shadowJar{
-  archiveClassifier.set("all")
+    archiveClassifier.set("all")
 }
 tasks.jar{
-
     dependsOn(shadowJar)
 }
