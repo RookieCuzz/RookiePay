@@ -94,7 +94,7 @@ public class MinePayCmd implements TabExecutor {
                             productDOExample.createCriteria().andProductNameEqualTo(args[1]);
                             //productName是唯一的
                             List<ProductDO> productDOS = mapper.selectByExample(productDOExample);
-                            if(productDOS.size() == 0) {
+                            if(productDOS.isEmpty()) {
                                 sender.sendMessage("§c商品不存在!");
                                 return;
                             }
@@ -117,7 +117,7 @@ public class MinePayCmd implements TabExecutor {
                             String qrCodeStr = RookiePayBukkit.INSTANCE.getQRCodeStr(rookiePayTryOrderMessage);
 
                             Map<String, String> stringStringMap = RookieFonts.playerPapiMap.get(player.getName());
-//                            System.out.println("Before: " + RookieFonts.playerPapiMap.get(player.getName()));
+                            System.out.println("Before: " + RookieFonts.playerPapiMap.get(player.getName()));
                             if (stringStringMap == null) {
                                 Map<String, String> map = new HashMap<>();
                                 map.put("%currentPage%", "3");
@@ -125,26 +125,22 @@ public class MinePayCmd implements TabExecutor {
                                 map.put("%payQRcode%", qrCodeStr);
                                 map.put("%money%", rookiePayTryOrderMessage.getMoney().toString());
                                 RookieFonts.playerPapiMap.put(player.getName(), map);
-//                                System.out.println("After (new): " + RookieFonts.playerPapiMap.get(player.getName()));
+                                System.out.println("After (new): " + RookieFonts.playerPapiMap.get(player.getName()));
                             } else {
                                 stringStringMap.put("%currentPage%", "3");
                                 stringStringMap.put("%pageAmount%", "6");
                                 stringStringMap.put("%payQRcode%", qrCodeStr);
                                 BigDecimal money = BigDecimal.valueOf(rookiePayTryOrderMessage.getMoney()).setScale(2, RoundingMode.HALF_UP);
                                 stringStringMap.put("%money%",money.toPlainString());
-//                                System.out.println("After (update): " + RookieFonts.playerPapiMap.get(player.getName()));
+                                System.out.println("After (update): " + RookieFonts.playerPapiMap.get(player.getName()));
                             }
-//                            System.out.println(rookiePayTryOrderMessage);
+                            System.out.println(rookiePayTryOrderMessage);
 
                             sender.sendMessage("§6请在弹出的窗口中完成支付！");
 
                             OdalitaMenus odalitaMenus = RookiePayBukkit.INSTANCE.getOdalitaMenus();
                             PayMenu payMenu = new PayMenu("{\"text\":\"" + qrCodeStr + "\",\"font\":\"pay/line1_font\"}");
                             odalitaMenus.openMenu(payMenu, player);
-                            // TODO:等待完成支付，此处等待十秒以模拟
-                            Thread.sleep(10000);
-                            payMenu.updateTitle("§c已完成支付");
-                            payMenu.setCanClose(true);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

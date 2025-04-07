@@ -1,6 +1,7 @@
 package com.cuzz.rookiepaybukkit.menus;
 
 import lombok.Setter;
+import nl.odalitadevelopments.menus.OdalitaMenus;
 import nl.odalitadevelopments.menus.annotations.Menu;
 import nl.odalitadevelopments.menus.contents.MenuContents;
 import nl.odalitadevelopments.menus.contents.action.MenuCloseResult;
@@ -24,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 )
 
 public final class PayMenu implements PlayerMenuProvider {
-    private boolean canClose = false;
     private MenuContents menuContent;
     private String title;
 
@@ -37,18 +37,18 @@ public final class PayMenu implements PlayerMenuProvider {
         this.menuContent = menuContents;
         menuContents.setTitle(this.title);
 
-        ItemMeta closeItemMeta = new ItemStack(Material.BARRIER).getItemMeta();
+        ItemMeta closeItemMeta = new ItemStack(Material.RED_WOOL).getItemMeta();
         assert closeItemMeta != null;
         closeItemMeta.setDisplayName("§c取消支付");
         ItemStack closeItemStack = new ItemStack(Material.BARRIER);
         closeItemStack.setItemMeta(closeItemMeta);
         ClickableItem closeItem = ClickableItem.of(closeItemStack, event -> {
-            canClose = true;
-            player.sendMessage("§a已取消支付");
-            event.getWhoClicked().closeInventory();
+            player.sendMessage("§c已取消支付");
+            player.closeInventory();
         });
         menuContents.set(8, closeItem);
-        menuContents.events().onClose(() -> canClose ? MenuCloseResult.CLOSE : MenuCloseResult.KEEP_OPEN);
+
+//        menuContents.events().onClose(() -> canClose ? MenuCloseResult.CLOSE : MenuCloseResult.KEEP_OPEN);
     }
 
     public void updateTitle(String title) {
