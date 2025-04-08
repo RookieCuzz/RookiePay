@@ -23,7 +23,10 @@ import okhttp3.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public final class RookiePayBukkit extends JavaPlugin {
 
@@ -64,6 +67,12 @@ public final class RookiePayBukkit extends JavaPlugin {
 
     public OdalitaMenus getOdalitaMenus(){
         return odalitaMenus;
+    }
+
+    Map<UUID, Boolean> playerPaymentStatus = new HashMap<>();
+
+    public Map<UUID, Boolean> getPlayerPaymentStatus() {
+        return playerPaymentStatus;
     }
 
     public String getQRCodeStr(RookiePayTryOrderMessage rookiePayTryOrderMessage){

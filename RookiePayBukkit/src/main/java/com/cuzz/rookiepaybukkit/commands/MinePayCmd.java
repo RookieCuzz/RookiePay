@@ -139,6 +139,7 @@ public class MinePayCmd implements TabExecutor {
                             sender.sendMessage("§6请在弹出的窗口中完成支付！");
 
                             OdalitaMenus odalitaMenus = RookiePayBukkit.INSTANCE.getOdalitaMenus();
+                            RookiePayBukkit.INSTANCE.getPlayerPaymentStatus().put(player.getUniqueId(), false);
 
                             PayMenu payMenu = new PayMenu();
                             odalitaMenus.openMenu(payMenu, player);

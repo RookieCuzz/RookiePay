@@ -110,6 +110,7 @@ public class MyWebSocketClient extends WebSocketClient {
                 assert player != null;
                 player.sendMessage("商品发货: " + productName + " 数量: " + quantity);
 
+                RookiePayBukkit.INSTANCE.getPlayerPaymentStatus().put(player.getUniqueId(), true);
                 OdalitaMenus odalitaMenus = RookiePayBukkit.INSTANCE.getOdalitaMenus();
                 MenuContents menuContents = odalitaMenus.getOpenMenuSession(player).getMenuContents();
                 menuContents.setTitle("§a支付成功");
