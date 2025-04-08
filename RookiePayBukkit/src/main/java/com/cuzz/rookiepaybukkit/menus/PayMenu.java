@@ -10,9 +10,11 @@ import nl.odalitadevelopments.menus.annotations.Menu;
 import nl.odalitadevelopments.menus.contents.MenuContents;
 import nl.odalitadevelopments.menus.contents.action.MenuCloseResult;
 import nl.odalitadevelopments.menus.items.ClickableItem;
+import nl.odalitadevelopments.menus.items.DisplayItem;
 import nl.odalitadevelopments.menus.menu.providers.PlayerMenuProvider;
 import nl.odalitadevelopments.menus.menu.type.MenuType;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -47,7 +49,15 @@ public final class PayMenu implements PlayerMenuProvider {
             RookiePayBukkit.INSTANCE.getPlayerPaymentStatus().put(player.getUniqueId(), true);
             player.closeInventory();
         });
-        menuContents.set(0, 7, closeItem);
+        menuContents.set(5, 7, closeItem);
+
+        ItemStack qrCodeItemStack = new ItemStack(Material.LEATHER_HORSE_ARMOR);
+        ItemMeta meta = qrCodeItemStack.getItemMeta();
+        meta.setDisplayName("QR Code");
+        meta.setItemModel(new NamespacedKey("oraxen", "qrcode"));
+        qrCodeItemStack.setItemMeta(meta);
+        DisplayItem qrCodeItem = DisplayItem.of(qrCodeItemStack);
+        menuContents.set(2, 4, qrCodeItem);
 
         menuContents.events().onClose(() -> RookiePayBukkit.INSTANCE.getPlayerPaymentStatus().get(player.getUniqueId()) ? MenuCloseResult.CLOSE : MenuCloseResult.KEEP_OPEN);
     }
