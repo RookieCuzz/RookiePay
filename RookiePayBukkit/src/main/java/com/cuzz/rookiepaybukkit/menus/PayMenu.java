@@ -30,7 +30,6 @@ import org.jetbrains.annotations.NotNull;
 
 public final class PayMenu implements PlayerMenuProvider {
     private MenuContents menuContent;
-    private String title;
 
     @Override
     public void onLoad(@NotNull Player player, @NotNull MenuContents menuContents) {
@@ -51,7 +50,7 @@ public final class PayMenu implements PlayerMenuProvider {
             player.sendMessage("§c已取消支付");
             player.closeInventory();
         });
-        menuContents.set(8, closeItem);
+        menuContents.set(0, 7, closeItem);
 
 //        menuContents.events().onClose(() -> canClose ? MenuCloseResult.CLOSE : MenuCloseResult.KEEP_OPEN);
     }

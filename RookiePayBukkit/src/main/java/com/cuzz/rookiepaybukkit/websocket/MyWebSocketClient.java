@@ -9,6 +9,7 @@ import com.cuzz.rookiepaybukkit.model.doo.OrderProductDO;
 import com.cuzz.rookiepaybukkit.model.doo.OrderProductDOExample;
 import com.cuzz.rookiepaybukkit.model.doo.OrdersDO;
 import com.cuzz.rookiepaybukkit.model.doo.OrdersDOExample;
+import com.cuzz.rookiepaybukkit.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import nl.odalitadevelopments.menus.OdalitaMenus;
@@ -20,6 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -39,14 +41,16 @@ public class MyWebSocketClient extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        // 使用新线程处理消息
-        new Thread(() -> {
-            Gson gson = new Gson();
-            // 解析 JSON 字符串
-            JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
-            processMessage(jsonObject);
-
-        }).start();
+        BukkitRunnable runnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                Gson gson = new Gson();
+                // 解析 JSON 字符串
+                JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
+                processMessage(jsonObject);
+            }
+        };
+        runnable.runTask(RookiePayBukkit.INSTANCE);
 
         System.out.println("📩 收到消息: " + message);
     }
@@ -109,16 +113,8 @@ public class MyWebSocketClient extends WebSocketClient {
                 OdalitaMenus odalitaMenus = RookiePayBukkit.INSTANCE.getOdalitaMenus();
                 MenuContents menuContents = odalitaMenus.getOpenMenuSession(player).getMenuContents();
                 menuContents.setTitle("§a支付成功");
-
-                ItemMeta closeItemMeta = new ItemStack(Material.GREEN_WOOL).getItemMeta();
-                assert closeItemMeta != null;
-                closeItemMeta.setDisplayName("§a完成");
-                ItemStack closeItemStack = new ItemStack(Material.GREEN_WOOL);
-                closeItemStack.setItemMeta(closeItemMeta);
-                ClickableItem closeItem = ClickableItem.of(closeItemStack, event -> {
-                    player.closeInventory();
-                });
-                menuContents.set(8, closeItem);
+                ToastUtils.displayTo(player, "emerald", "§a支付成功", ToastUtils.Style.GOAL);
+                player.closeInventory();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
