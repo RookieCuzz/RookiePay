@@ -25,7 +25,7 @@ dependencies {
     compileOnly 'org.mybatis.generator:mybatis-generator-core:1.4.2'
     // 引入本地模块 'Common'，用于复用公共功能
     implementation project(':Common')
-    compileOnly "org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT"
+    compileOnly "org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT"
 
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
@@ -34,9 +34,9 @@ dependencies {
     compileOnly 'com.zaxxer:HikariCP:4.0.3'
     // 引入本地 jar 文件，路径指定为本地文件系统中的 afybroker-server-bootstrap-2.3-all.jar
     // 引入本地 jar 文件，路径指定为本地文件系统中的 afybroker-server-bootstrap-2.3-all.jar
-    compileOnly files("C:/Users/PC/Desktop/RookiePay/libs/afybroker-bukkit-2.3-all.jar")
-    compileOnly files("C:/Users/PC/Desktop/RookiePay/libs/BukkitMybatis-1.0-SNAPSHOT.jar")
-    compileOnly files("C:\\Users\\PC\\Desktop\\RookiePay\\libs\\RookieFonts-1.0-SNAPSHOT-all.jar")
+    compileOnly files("$rootDir/libs/afybroker-bukkit-2.3-all.jar")
+    compileOnly files("$rootDir/libs/BukkitMybatis-1.0-SNAPSHOT.jar")
+    compileOnly files("$rootDir/libs/RookieFonts-1.0-SNAPSHOT-all.jar")
     implementation 'io.github.odalita-developments.odalitamenus:core:0.5.13'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'org.java-websocket:Java-WebSocket:1.5.2'
@@ -80,13 +80,8 @@ processResources {
 }
 
 shadowJar{
-  archiveClassifier.set("all")
-    dependencies {
-//        include(dependency("com.fasterxml.jackson.core:jackson-core"))
-//        include(dependency("com.squareup.okhttp3:okhttp"))
-    }
+    archiveClassifier.set("all")
 }
 tasks.jar{
-
     dependsOn(shadowJar)
 }

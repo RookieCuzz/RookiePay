@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     implementation project(":Common")
-    compileOnly files("C:/Users/PC/Desktop/RookieChat/libs/afybroker-server-bootstrap-2.3-all.jar")
+    compileOnly files("$rootDir/libs/afybroker-server-bootstrap-2.3-all.jar")
 
 }
 
